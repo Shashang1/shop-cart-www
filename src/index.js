@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './assets/css/index.css';
-import './assets/css/custom.css'
+import './assets/css/custom_container.css'
 import Home from './components/home';
 import * as serviceWorker from './serviceWorker';
 
