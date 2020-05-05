@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './assets/css/index.css';
+import './assets/css/App.css';
 import App from './components/app';
 import * as serviceWorker from './serviceWorker';
 
