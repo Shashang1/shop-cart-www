@@ -1,20 +1,34 @@
 import React from 'react'
-import { AppBar, Toolbar } from '@material-ui/core'
-import { Link } from 'react-router-dom'
+import { AppBar, Toolbar, Button } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
+
+import { styles } from './style'
 
 class Header extends React.Component {
 	render() {
+		const { classes } = this.props
 		return (
 			<AppBar position='static' className='header'>
 				<Toolbar>
-					<Link to='/' className='header_link'>Home</Link>
-					<Link to='/products' className='header_link'>Products</Link>
-					<Link to='/login' className='header_link'>Login</Link>
-					<Link to='/signup' className='header_link'>Signup</Link>
+					<div className={classes.buttonGroup}>
+						<Button
+							variant="contained"
+							href="/login" className={classes.loginButton}
+						>
+							Login
+						</Button>
+						<Button
+							variant="contained"
+							href="/signup"
+							className={classes.signupButton}
+						>
+							Signup
+						</Button>
+					</div>
 				</Toolbar>
 			</AppBar>
 		)
 	}
 }
 
-export default Header
+export default withStyles(styles)(Header)
