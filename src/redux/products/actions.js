@@ -1,5 +1,3 @@
 import { SET_PRODUCTS } from './types'
 
-export function setProducts(){
-    return {type:SET_PRODUCTS}
-}
+export const setProducts = () => ({ type: SET_PRODUCTS })
