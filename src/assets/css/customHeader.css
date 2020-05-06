@@ -1,11 +1,3 @@
-.header_link{
-    margin:13px;
-    color: white;
-    text-decoration: none;
-}
-.header_link:visited{
-    color: white;
-}
 .header{
     width: 100%;
 }
