@@ -11,9 +11,11 @@ export const styles = theme => ({
     boxSizing: 'border-box',
     padding: theme.spacing(1)
   },
+
   carouselItem: {
     width: '100%'
   },
+
   carouselImage: {
     width: '100%',
     height: '200px'

@@ -6,6 +6,7 @@ import Slideshow from './Slideshow'
 import { styles } from './style'
 
 class Home extends React.Component {
+
   render() {
     const { classes } = this.props
     return (

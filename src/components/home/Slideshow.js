@@ -1,18 +1,18 @@
 import React from 'react'
 import Carousel from 'react-bootstrap/Carousel'
 
-function Slideshow({ classes }) {
+const Slideshow = ({ classes }) => {
   const slides = [
     {
-      ImageUrl: 'https://mdbootstrap.com/img/Photos/Slides/img%20(45).jpg',
+      imageUrl: 'https://mdbootstrap.com/img/Photos/Slides/img%20(45).jpg',
       title: 'First slide'
     },
     {
-      ImageUrl: 'https://mdbootstrap.com/img/Photos/Slides/img%20(46).jpg',
+      imageUrl: 'https://mdbootstrap.com/img/Photos/Slides/img%20(46).jpg',
       title: 'Second slide'
     },
     {
-      ImageUrl: 'https://mdbootstrap.com/img/Photos/Slides/img%20(47).jpg',
+      imageUrl: 'https://mdbootstrap.com/img/Photos/Slides/img%20(47).jpg',
       title: 'Third slide'
     }
 
@@ -23,7 +23,7 @@ function Slideshow({ classes }) {
         <Carousel.Item key={slide.title} className={classes.carouselItem}>
           <img
             className={classes.carouselImage}
-            src={slide.ImageUrl}
+            src={slide.imageUrl}
             alt={slide.title}
           />
         </Carousel.Item>
