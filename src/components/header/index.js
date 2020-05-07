@@ -7,14 +7,18 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { styles } from './style'
 
 class Header extends React.Component {
+
 	render() {
-		const { classes } = this.props
-		const { userData } = this.props
+		const {
+			classes,
+			userReducer: { isAuthenticated, currentUser },
+		} = this.props
+
 		return (
 			<AppBar position='static' className='header'>
 				<Toolbar>
 					<div className={classes.buttonGroup}>
-						{userData.isAuthencated ?
+						{isAuthenticated ?
 							(
 								<>
 									<IconButton aria-label='cart' href='/cart'>
@@ -25,7 +29,7 @@ class Header extends React.Component {
 										className={classes.userButton}
 										size='large'
 									>
-										{userData.currentUser.firstName[0]}
+										{currentUser.firstName && currentUser.firstName[0] || 'U'}
 									</Button>
 								</>
 							) : (
@@ -53,7 +57,7 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = state => ({
-	userData: state.userData
+	userReducer: state.userReducer
 })
 
 const HeaderConnect = connect(mapStateToProps)(Header)
