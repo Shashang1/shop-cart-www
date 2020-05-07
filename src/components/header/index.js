@@ -18,8 +18,7 @@ class Header extends React.Component {
 			<AppBar position='static' className='header'>
 				<Toolbar>
 					<div className={classes.buttonGroup}>
-						{isAuthenticated ?
-							(
+						{isAuthenticated ? (
 								<>
 									<IconButton aria-label='cart' href='/cart'>
 										<ShoppingCartIcon className={classes.cartIcon} />
