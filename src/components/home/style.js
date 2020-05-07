@@ -1,3 +1,4 @@
+
 export const styles = theme => ({
   carouselBox: {
     width: '70%',  // eslint-disable-next-line
@@ -30,11 +31,40 @@ export const styles = theme => ({
     fontSize: '1.22vw', // eslint-disable-next-line
     ['@media (max-width:950px)']: {
       fontSize: "1.4vw"
-    },
+    },// eslint-disable-next-line
     ['@media (max-width:550px)']: {
       width: '100%',
       fontSize: '3vw',
       height: '150px'
     }
+  },
+
+  productCardContainer: {
+    width: '100%',
+    padding: theme.spacing(2),
+    marginTop: theme.spacing(2)
+  },
+
+  productCard: {
+    width: '20%',
+    float: "left",
+    textAlign: "center",
+    marginTop: theme.spacing(1),
+    // eslint-disable-next-line
+    ['@media (max-width:1020px)']: {
+      width: '33%'
+    },
+    // eslint-disable-next-line
+    ['@media (max-width:600px)']: {
+      width: '100%'
+    }
+  },
+
+  productCardMedia: {
+    height: "200px"
+  },
+
+  addToCartButton: {
+    width: "100%"
   }
 })
