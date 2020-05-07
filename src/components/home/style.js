@@ -25,8 +25,8 @@ export const styles = theme => ({
     padding: theme.spacing(2),
     fontSize: '1.22vw', // eslint-disable-next-line
     ['@media (max-width:950px)']: {
-      fontSize: "1.4vw"
-    },
+      fontSize: "1.4vw" 
+    },// eslint-disable-next-line
     ['@media (max-width:550px)']: {
       width: '100%',
       fontSize: '3vw',
