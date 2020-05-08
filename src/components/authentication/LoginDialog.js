@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   Button,
   TextField,
@@ -8,7 +8,7 @@ import {
   DialogTitle,
   List,
   ListItem
-} from '@material-ui/core';
+} from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 
 import styles from './style'
@@ -45,8 +45,9 @@ class LoginDialog extends React.Component {
     }
   }
 
-  onSignupClick = ()=>{
+  onSignupClick = () => {
     this.props.setHideLoginDialog()
+    this.props.setShowSignupDialog()
   }
 
   render() {

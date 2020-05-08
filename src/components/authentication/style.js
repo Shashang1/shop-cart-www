@@ -15,6 +15,10 @@ const styles = theme => ({
   errMsg: {
     color: 'tomato',
     fontSize: '12px'
+  },
+  loginLink: {
+    margin: 'auto',
+    marginTop: theme.spacing(3)
   }
 })
 
