@@ -6,14 +6,16 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 import { styles } from './style'
 
+import { setShowLoginDialog } from '../../redux/user/actions'
+
 class Header extends React.Component {
 
 	render() {
 		const {
 			classes,
 			userReducer: { isAuthenticated, currentUser },
+			setShowLoginDialog,
 		} = this.props
-
 		return (
 			<AppBar position='static' className='header'>
 				<Toolbar>
@@ -36,13 +38,14 @@ class Header extends React.Component {
 								<>
 									<Button
 										variant='contained'
-										href='/login' className={classes.loginButton}
+										onClick={setShowLoginDialog}
+										className={classes.loginButton}
 									>
 										Login
 									</Button>
 									<Button
 										variant='contained'
-										href='/signup'
+										onClick={setShowLoginDialog}
 										className={classes.signupButton}
 									>
 										Signup
@@ -60,5 +63,9 @@ const mapStateToProps = state => ({
 	userReducer: state.userReducer
 })
 
-const HeaderConnect = connect(mapStateToProps)(Header)
+const mapDispatchToProps = dispatch => ({
+	setShowLoginDialog: () => dispatch(setShowLoginDialog()),
+})
+
+const HeaderConnect = connect(mapStateToProps, mapDispatchToProps)(Header)
 export default withStyles(styles)(HeaderConnect)
