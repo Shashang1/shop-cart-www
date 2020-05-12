@@ -5,7 +5,8 @@ import {
   HIDE_SIGNUP_DIALOG,
   USER_LOADING,
   SET_USER,
-  SET_USER_LOGIN_ERROR
+  SET_USER_LOGIN_ERROR,
+  SET_USER_SIGNUP_ERROR
 } from './types'
 
 const initialState = {
@@ -32,6 +33,8 @@ function userReducer(state = initialState, action) {
       return { ...state, currentUser: action.userData, isLoading: false, isAuthenticated: true }
     case SET_USER_LOGIN_ERROR:
       return { ...state, loginError: action.error }
+    case SET_USER_SIGNUP_ERROR:
+      return { ...state, signupError: action.error }
     default:
       return state
   }

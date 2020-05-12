@@ -82,7 +82,15 @@ class SignupDialog extends React.Component {
       errArray.push('Phone number must be a number and must have 7 numbers')
     }
     if (!errArray.length) {
-      this.props.setHideSignupDialog()
+      this.setState({ errArray })
+      this.props.signup({
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        email: this.state.email,
+        password: this.state.pass,
+        address: this.state.address,
+        phone: this.state.phone
+      })
     }
     else {
       this.setState({ errArray })
@@ -98,7 +106,8 @@ class SignupDialog extends React.Component {
     const {
       showSignupDialog,
       setHideSignupDialog,
-      classes
+      classes,
+      signupError
     } = this.props;
 
     const { email,
@@ -205,6 +214,11 @@ class SignupDialog extends React.Component {
                 <ListItem className={classes.errMsg} key={value}>
                   {value}
                 </ListItem>))
+            }
+            {(signupError && !this.state.errArray.length) &&
+              <ListItem className={classes.errMsg} key={signupError}>
+                {signupError}
+              </ListItem>
             }
           </List>
           <Button

@@ -13,18 +13,19 @@ import {
   setShowLoginDialog,
   setShowSignupDialog
 } from '../../redux/user/actions'
-import { getUser } from '../../redux/user/operations'
+import { getUser, signup } from '../../redux/user/operations'
 
 class App extends React.Component {
 
   render() {
     const {
-      userReducer: { showLoginDialog, showSignupDialog, loginError },
+      userReducer: { showLoginDialog, showSignupDialog, loginError, signupError },
       setHideLoginDialog,
       setHideSignupDialog,
       setShowLoginDialog,
       setShowSignupDialog,
-      getUser
+      getUser,
+      signup
     } = this.props
 
     return (
@@ -40,6 +41,8 @@ class App extends React.Component {
           showSignupDialog={showSignupDialog}
           setHideSignupDialog={setHideSignupDialog}
           setShowLoginDialog={setShowLoginDialog}
+          signup={signup}
+          signupError={signupError}
         />
         <Router>
           <Header />
@@ -59,7 +62,8 @@ const mapDispatchToProps = (dispatch) => ({
   setHideSignupDialog: () => dispatch(setHideSignupDialog()),
   setShowLoginDialog: () => dispatch(setShowLoginDialog()),
   setShowSignupDialog: () => dispatch(setShowSignupDialog()),
-  getUser: payload => dispatch(getUser(payload))
+  getUser: payload => dispatch(getUser(payload)),
+  signup: payload => dispatch(signup(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
