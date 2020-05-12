@@ -1,5 +1,6 @@
 import React from 'react'
 import { AppBar, Toolbar, Button, IconButton } from '@material-ui/core'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
@@ -7,6 +8,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { styles } from './style'
 
 import { setShowLoginDialog, setShowSignupDialog } from '../../redux/user/actions'
+
 
 class Header extends React.Component {
 
@@ -24,16 +26,16 @@ class Header extends React.Component {
 						{isAuthenticated ?
 							(
 								<>
-									<IconButton aria-label='cart' href='/cart'>
-										<ShoppingCartIcon className={classes.cartIcon} />
-									</IconButton>
-									<Button
-										href='/user'
-										className={classes.userButton}
-										size='large'
-									>
-										{currentUser.firstName && currentUser.firstName[0] || 'U'}
-									</Button>
+									<Link to='/cart'>
+										<IconButton aria-label='cart'>
+											<ShoppingCartIcon className={classes.cartIcon} />
+										</IconButton>
+									</Link>
+									<Link to='/user'>
+										<Button className={classes.userButton}>
+											{currentUser.firstName && currentUser.firstName[0] || 'U'}
+										</Button>
+									</Link>
 								</>
 							) : (
 								<>

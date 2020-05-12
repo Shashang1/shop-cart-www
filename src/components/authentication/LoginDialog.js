@@ -16,7 +16,7 @@ import styles from './style'
 class LoginDialog extends React.Component {
   constructor() {
     super()
-    this.state = { email: '', pass: '', errArray: [] }
+    this.state = { email: '', password: '', errArray: [] }
   }
 
   onEmailChange = e => {
@@ -24,7 +24,7 @@ class LoginDialog extends React.Component {
   }
 
   onPassChange = e => {
-    this.setState({ pass: e.target.value })
+    this.setState({ password: e.target.value })
   }
 
   handleLoginClick = () => {
@@ -34,11 +34,16 @@ class LoginDialog extends React.Component {
       errArray.push('Email not valid.')
     }
 
-    if (this.state.pass < 6) {
+    if (this.state.password < 6) {
       errArray.push('Password not valid')
     }
     if (!errArray.length) {
-      this.props.setHideLoginDialog()
+      this.setState({ errArray })
+      this.props.getUser({
+        email: this.state.email,
+        password: this.state.password
+      })
+
     }
     else {
       this.setState({ errArray })
@@ -54,9 +59,10 @@ class LoginDialog extends React.Component {
     const {
       showLoginDialog,
       setHideLoginDialog,
-      classes
+      classes,
+      loginError
     } = this.props;
-    const { email, pass } = this.state
+    const { email, password } = this.state
 
     return (
       <Dialog
@@ -87,7 +93,7 @@ class LoginDialog extends React.Component {
             type="password"
             fullWidth
             onChange={this.onPassChange}
-            value={pass}
+            value={password}
           />
           <Button
             variant="contained"
@@ -104,6 +110,11 @@ class LoginDialog extends React.Component {
                 <ListItem className={classes.errMsg} key={value}>
                   {value}
                 </ListItem>))
+            }
+            {(loginError && !this.state.errArray.length) &&
+              <ListItem className={classes.errMsg} key={loginError}>
+                {loginError}
+              </ListItem>
             }
           </List>
           <Button
