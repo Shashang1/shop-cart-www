@@ -5,22 +5,61 @@ import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
+import LoginDialog from '../authentication/LoginDialog'
+import SignupDialog from '../authentication/SignupDialog'
 import { styles } from './style'
 
-import { setShowLoginDialog, setShowSignupDialog } from '../../redux/user/actions'
-
+import {
+	setShowLoginDialog,
+	setShowSignupDialog,
+	setUserLoginError,
+	setUserSignupError
+} from '../../redux/user/actions'
+import { getUser, signup } from '../../redux/user/operations'
 
 class Header extends React.Component {
 
 	render() {
 		const {
 			classes,
-			userReducer: { isAuthenticated, currentUser },
+			userReducer: {
+				isAuthenticated,
+				currentUser,
+				showLoginDialog,
+				showSignupDialog,
+				loginError,
+				signupError
+			},
 			setShowLoginDialog,
-			setShowSignupDialog
+			setShowSignupDialog,
+			setUserLoginError,
+			setUserSignupError,
+			getUser,
+			signup
 		} = this.props
+
 		return (
-			<AppBar position='static' className='header'>
+			<AppBar position='sticky' className='header'>
+				{showLoginDialog &&
+					<LoginDialog
+						showLoginDialog={showLoginDialog}
+						setShowLoginDialog={setShowLoginDialog}
+						setShowSignupDialog={setShowSignupDialog}
+						getUser={getUser}
+						loginError={loginError}
+						setUserLoginError={setUserLoginError}
+					/>
+				}
+				{showSignupDialog &&
+					<SignupDialog
+						showSignupDialog={showSignupDialog}
+						setShowSignupDialog={setShowSignupDialog}
+						setShowLoginDialog={setShowLoginDialog}
+						signup={signup}
+						signupError={signupError}
+						setUserSignupError={setUserSignupError}
+					/>
+				}
 				<Toolbar>
 					<div className={classes.buttonGroup}>
 						{isAuthenticated ?
@@ -33,7 +72,7 @@ class Header extends React.Component {
 									</Link>
 									<Link to='/user'>
 										<Button className={classes.userButton}>
-											{currentUser.firstName && currentUser.firstName[0] || 'U'}
+											{(currentUser.firstName && currentUser.firstName[0]) || 'U'}
 										</Button>
 									</Link>
 								</>
@@ -41,14 +80,14 @@ class Header extends React.Component {
 								<>
 									<Button
 										variant='contained'
-										onClick={setShowLoginDialog}
+										onClick={() => setShowLoginDialog(true)}
 										className={classes.loginButton}
 									>
 										Login
 									</Button>
 									<Button
 										variant='contained'
-										onClick={setShowSignupDialog}
+										onClick={() => setShowSignupDialog(true)}
 										className={classes.signupButton}
 									>
 										Signup
@@ -66,10 +105,15 @@ const mapStateToProps = state => ({
 	userReducer: state.userReducer
 })
 
-const mapDispatchToProps = dispatch => ({
-	setShowLoginDialog: () => dispatch(setShowLoginDialog()),
-	setShowSignupDialog: () => dispatch(setShowSignupDialog())
-})
+const mapDispatchToProps = {
+	setShowLoginDialog,
+	setShowSignupDialog,
+	getUser,
+	signup,
+	setUserLoginError,
+	setUserSignupError
+}
+
 
 const HeaderConnect = connect(mapStateToProps, mapDispatchToProps)(Header)
 export default withStyles(styles)(HeaderConnect)

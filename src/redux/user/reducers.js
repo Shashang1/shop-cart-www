@@ -1,8 +1,6 @@
 import {
   SHOW_LOGIN_DIALOG,
-  HIDE_LOGIN_DIALOG,
   SHOW_SIGNUP_DIALOG,
-  HIDE_SIGNUP_DIALOG,
   USER_LOADING,
   SET_USER,
   SET_USER_LOGIN_ERROR,
@@ -14,23 +12,33 @@ const initialState = {
   isAuthenticated: false,
   showLoginDialog: false,
   showSignupDialog: false,
-  isLoading: false
+  isLoading: false,
+  loginError: '',
+  signupError: ''
 }
 
-function userReducer(state = initialState, action) {
+const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case SHOW_LOGIN_DIALOG:
-      return { ...state, showLoginDialog: true }
-    case HIDE_LOGIN_DIALOG:
-      return { ...state, showLoginDialog: false }
+      return {
+        ...state,
+        showLoginDialog: action.show
+      }
     case SHOW_SIGNUP_DIALOG:
-      return { ...state, showSignupDialog: true }
-    case HIDE_SIGNUP_DIALOG:
-      return { ...state, showSignupDialog: false }
+      return {
+        ...state,
+        showSignupDialog: action.show
+      }
     case USER_LOADING:
       return { ...state, isLoading: action.isLoading }
     case SET_USER:
-      return { ...state, currentUser: action.userData, isLoading: false, isAuthenticated: true }
+      return {
+        ...state,
+        currentUser: action.user.userData,
+        isLoading: false,
+        isAuthenticated: true,
+        token: action.user.token
+      }
     case SET_USER_LOGIN_ERROR:
       return { ...state, loginError: action.error }
     case SET_USER_SIGNUP_ERROR:

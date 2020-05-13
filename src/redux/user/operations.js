@@ -1,16 +1,25 @@
 import axios from '../../config/requestConfig'
-import { setUserLoading, setUser, setUserLoginError, setHideLoginDialog, setHideSignupDialog, setUserSignupError } from './actions'
+import {
+  setUserLoading,
+  setUser,
+  setUserLoginError,
+  setUserSignupError,
+  setShowLoginDialog,
+  setShowSignupDialog
+} from './actions'
 
 export const getUser = (payload) => {
   return dispatch => {
     dispatch(setUserLoading(true))
     axios.post('user/login', payload)
       .then(res => {
-        dispatch(setUser(res.data.userData, res.data.token))
-        dispatch(setHideLoginDialog())
-        dispatch(setUserLoginError(''))
+        dispatch(setUser(res.data))
+        dispatch(setShowLoginDialog(false))
       })
-      .catch((err) => { dispatch(setUserLoginError(err.response.data.error)) })
+      .catch((err) => {
+        if (err.response) dispatch(setUserLoginError(err.response.data.error))
+        else dispatch(setUserLoginError('Something went worng'))
+      })
     dispatch(setUserLoading(false))
   }
 }
@@ -20,11 +29,13 @@ export const signup = (payload) => {
     dispatch(setUserLoading(true))
     axios.post('user/signup', payload)
       .then(res => {
-        dispatch(setUser(res.data.userData, res.data.token))
-        dispatch(setHideSignupDialog())
-        dispatch(setUserSignupError(''))
+        dispatch(setUser(res.data))
+        dispatch(setShowSignupDialog(false))
       })
-      .catch(err => { dispatch(setUserSignupError(err.response.data.error)) })
+      .catch(err => {
+        if (err.response) dispatch(setUserSignupError(err.response.data.error))
+        else dispatch(setUserSignupError('Something went worng'))
+      })
     dispatch(setUserLoading(false))
   }
 }

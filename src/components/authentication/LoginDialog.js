@@ -4,19 +4,23 @@ import {
   TextField,
   Dialog,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   List,
   ListItem
 } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 
+import { loginValidator } from './helper'
 import styles from './style'
 
 class LoginDialog extends React.Component {
   constructor() {
     super()
     this.state = { email: '', password: '', errArray: [] }
+  }
+
+  componentWillUnmount = () => {
+    this.props.setUserLoginError('')
   }
 
   onEmailChange = e => {
@@ -28,22 +32,14 @@ class LoginDialog extends React.Component {
   }
 
   handleLoginClick = () => {
-    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
-    let errArray = []
-    if (!emailPattern.test(this.state.email)) {
-      errArray.push('Email not valid.')
-    }
+    let errArray = loginValidator(this.state)
 
-    if (this.state.password < 6) {
-      errArray.push('Password not valid')
-    }
     if (!errArray.length) {
       this.setState({ errArray })
       this.props.getUser({
         email: this.state.email,
         password: this.state.password
       })
-
     }
     else {
       this.setState({ errArray })
@@ -51,14 +47,14 @@ class LoginDialog extends React.Component {
   }
 
   onSignupClick = () => {
-    this.props.setHideLoginDialog()
-    this.props.setShowSignupDialog()
+    this.props.setShowLoginDialog(false)
+    this.props.setShowSignupDialog(true)
   }
 
   render() {
     const {
       showLoginDialog,
-      setHideLoginDialog,
+      setShowLoginDialog,
       classes,
       loginError
     } = this.props;
@@ -67,15 +63,12 @@ class LoginDialog extends React.Component {
     return (
       <Dialog
         open={showLoginDialog}
-        onClose={setHideLoginDialog}
+        onClose={() => setShowLoginDialog(false)}
         aria-labelledby="login-form-dialog-title"
         fullWidth
       >
         <DialogTitle id="form-dialog-title">Login</DialogTitle>
         <DialogContent className={classes.dialogContent}>
-          <DialogContentText>
-            Get access to all your orders.
-            </DialogContentText>
           <TextField
             autoFocus
             margin="dense"

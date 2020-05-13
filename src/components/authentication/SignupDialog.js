@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 
+import { signupValidator } from './helper'
 import styles from './style'
 
 class SignupDialog extends React.Component {
@@ -25,6 +26,10 @@ class SignupDialog extends React.Component {
       phone: '',
       errArray: []
     }
+  }
+
+  componentWillUnmount = () => {
+    this.props.setUserSignupError('')
   }
 
   onEmailChange = e => {
@@ -56,31 +61,8 @@ class SignupDialog extends React.Component {
   }
 
   handleSignupClick = () => {
-    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
-    const phonePattern = /^[0-9]*$/
-    let errArray = []
-    if (this.state.firstName.length < 1) {
-      errArray.push('First Name requried')
-    }
-    if (this.state.lastName.length < 1) {
-      errArray.push('Last name requried')
-    }
-    if (!emailPattern.test(this.state.email)) {
-      errArray.push('Email not valid.')
-    }
-    if (this.state.pass < 6) {
-      errArray.push('Password must be of 6 characters')
-    }
-    if (this.state.confirmPass !== this.state.pass) {
-      errArray.push('Confirm password and password must be same')
-    }
-    if (this.state.address.length < 1) {
-      errArray.push('Address requried')
-    }
-    if (!phonePattern.test(this.state.phone) || this.state.phone.length < 7) {
+    let errArray = signupValidator(this.state)
 
-      errArray.push('Phone number must be a number and must have 7 numbers')
-    }
     if (!errArray.length) {
       this.setState({ errArray })
       this.props.signup({
@@ -98,14 +80,14 @@ class SignupDialog extends React.Component {
   }
 
   onLoginClick = () => {
-    this.props.setHideSignupDialog()
-    this.props.setShowLoginDialog()
+    this.props.setShowSignupDialog(false)
+    this.props.setShowLoginDialog(true)
   }
 
   render() {
     const {
       showSignupDialog,
-      setHideSignupDialog,
+      setShowSignupDialog,
       classes,
       signupError
     } = this.props;
@@ -122,7 +104,7 @@ class SignupDialog extends React.Component {
     return (
       <Dialog
         open={showSignupDialog}
-        onClose={setHideSignupDialog}
+        onClose={() => setShowSignupDialog(false)}
         aria-labelledby="login-form-dialog-title"
         fullWidth
       >
