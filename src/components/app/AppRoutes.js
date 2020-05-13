@@ -2,7 +2,7 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 
 import Home from '../home'
-import Products from '../products'
+import Product from '../product'
 import Login from '../login'
 import Signup from '../signup'
 
@@ -11,8 +11,8 @@ const AppRoutes = () => (
     <Route exact path='/'>
       <Home />
     </Route>
-    <Route exact path='/products'>
-      <Products />
+    <Route exact path='/product'>
+      <Product />
     </Route>
     <Route exact path='/login'>
       <Login />
